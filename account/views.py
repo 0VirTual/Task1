@@ -44,8 +44,7 @@ def dashboardPatient(request):
         form = Patient.objects.get(email__startswith=namer.email)
     except Patient.DoesNotExist:
         form = None    
-    
-        
+     
     context = {'form': form}
     return render(request, 'account/dashboard.html', context)
 

@@ -4,14 +4,14 @@
 {% block content %}
 
 
-<!-- <style>
+<style>
 	.profile-pic{
 		max-width: 200px;
 		max-height:200px;
 		margin: 0 auto;
 		border-radius: 10%;
 	}
-</style> -->
+</style>
 
 <br>
 <div class="row">
@@ -30,13 +30,13 @@
 			
 			
             <ul class="list-group">
-                <li class="list-group-item">{{ form.user.username}}</li>
-                <li class="list-group-item">{{ form.firstname }}</li>
-                <li class="list-group-item">{{ form.lastname }}</li>
-                <li class="list-group-item">{{ form.address }}</li>
-                <li class="list-group-item">{{ form.zip }}</li>
-                <li class="list-group-item">{{ form.country.name }}</li>
-                <li class="list-group-item">{{ form.email }}</li>                        
+        
+                <li class="list-group-item">Firstname:&nbsp; {{ form.firstname }}</li>
+                <li class="list-group-item">Lastname:&nbsp; {{ form.lastname }}</li>
+                <li class="list-group-item">Address:&nbsp; {{ form.address }}</li>
+                <li class="list-group-item">Zip:&nbsp; {{ form.zip }}</li>
+                <li class="list-group-item">City:&nbsp; {{ form.city }}</li>
+                <li class="list-group-item">State:&nbsp; {{ form.state }}</li>                        
               </ul>
 		
 		</div>
