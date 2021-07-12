@@ -1,0 +1,111 @@
+{% extends 'account/base.html' %}
+{% block title %} Sign Up {% endblock %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+
+
+
+
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">REGISTER</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+
+					<form method="POST" action="">
+                        {% csrf_token %}
+
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Username</i></span>
+							</div>	
+                            <input type="text" name="username" placeholder="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Firstname</i></span>
+							</div>	
+                            {% render_field form.firstname name="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Last Name</i></span>
+							</div>	
+                            {% render_field form.lastname name="lastname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Email</i></span>
+							</div>	
+                            {% render_field form.email name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Profile</i></span>
+							</div>	
+                            {% render_field form.profile name="profile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Address</i></span>
+							</div>	
+                            {% render_field form.address name="address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Zip</i></span>
+							</div>	
+                            {% render_field form.zip name="zip" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Country</i></span>
+							</div>	
+                            {% render_field form.country name="country" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" %} <br>
+						</div>
+                        
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Password</i></span>
+							</div>	
+                            <input type="password" name="password1" placeholder="Enter Password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square">Confirm Password</i></span>
+							</div>	
+                            <input type="password" name="password2" placeholder="Enter Again" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						</div>
+
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <input class="btn login_btn" type="submit" value="Register">
+                        </div>
+					</form>
+				</div>
+                {% for message in messages %}
+                    <p id="messages">{{message}}</p>
+                {% endfor %}
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
