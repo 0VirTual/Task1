@@ -2,14 +2,26 @@
 {% block title	%} {{ post.title }}{% endblock %}
 
 {% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="page-header">
+            <h1>{{ post.title }}</h1>
+        </div>
+        
+        <h5>Category:&nbsp;{{post.category}}</h5>
+        <p class="date">
+        <i>Published {{ post.publish }} by {{ post.author }}</i>
+        </p>
+        <p><img class="figure-img img-fluid rounded" src="{{post.pic.url}}" alt=""></p>
+        <h6>{{post.summery}}</h6>
+        <p>{{post.content| linebreaks}}</p>
+      </div>
 
-    <h1>Title:&nbsp;{{ post.title }}</h1>
-    <h5>Category:&nbsp;{{post.category}}</h5>
-    <p class="date">
-    <i>Published {{ post.publish }} by {{ post.author }}</i>
-    </p>
-    <h6>Summery:&nbsp;{{post.summery}}</h6>
-    <p>{{post.content| linebreaks}}</p>
+   
+
+    
+</div>
+    
 
     
 

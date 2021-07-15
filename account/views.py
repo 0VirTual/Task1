@@ -33,10 +33,10 @@ def makeBlog(request):
     namer = Doctor.objects.get(email__startswith=visitor.email)
 
     if request.method == "POST":
-        form  = BlogForm(request.POST)
+        form  = BlogForm(request.POST, request.FILES)
         
         if form.is_valid():
-            form = BlogForm(request.POST)
+            form = BlogForm(request.POST, request.FILES)
             post = form.save(commit=False)
             post.author = namer
             post.slug = slugify(post.title)
@@ -138,7 +138,7 @@ def Choose(request):
 def registerDoctor(request):
     
     if request.method == "POST":
-        form = DoctorForm(request.POST)
+        form = DoctorForm(request.POST, request.FILES)
         username = request.POST['username']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -178,7 +178,7 @@ def registerDoctor(request):
 def registerPatient(request):
     
     if request.method == "POST":
-        form = PatientForm(request.POST)
+        form = PatientForm(request.POST, request.FILES)
 
         username = request.POST['username']
         password1 = request.POST['password1']

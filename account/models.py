@@ -15,7 +15,7 @@ from django.utils import timezone
 class Doctor(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
-    profile = models.ImageField(default="user.png", null=True, blank=True, upload_to="images")
+    profile = models.ImageField(default="user.png", null=True, blank=True, upload_to="images/%Y/%m/%d/")
     email = models.CharField(max_length=50)
     zip = IntegerField()
     address = CharField(max_length=250)
@@ -28,7 +28,7 @@ class Doctor(models.Model):
 class Patient(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
-    profile = models.ImageField(default="user.png", null=True, blank=True, upload_to="images")
+    profile = models.ImageField(default="user.png", null=True, blank=True, upload_to="images/%Y/%m/%d/")
     email = models.CharField(max_length=50)
     zip = IntegerField()
     address = CharField(max_length=250)
@@ -60,7 +60,7 @@ class Post(models.Model):
 
     category = models.CharField(choices=CATEGORY, default='Mental Health', max_length=20)
     title = models.CharField(max_length=100, unique=True)
-    pic = models.ImageField(default="blog.png", null=True, blank=True, upload_to="images")
+    pic = models.ImageField(default="blog.png", null=True, blank=True, upload_to="images/%Y/%m/%d/")
     summery = models.CharField(max_length=200, unique=True)
     publish = models.DateTimeField(default=timezone.now)
 

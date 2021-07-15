@@ -25,7 +25,7 @@ class PatientForm(ModelForm):
 class BlogForm(ModelForm):
     class Meta:
         model = Post
-        fields = ('category', 'title', 'summery','pic', 'content', 'status')
+        fields = ( 'title', 'pic','category', 'summery', 'content', 'status')
         exclude = ['slug', 'created_on']
 
         
