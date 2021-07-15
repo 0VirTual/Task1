@@ -2,5 +2,19 @@
 {% block title %} Home{% endblock %}
 {% load static %}
 {% block content %}
-    <h3>HomePage</h3>
+<h2 align=center>this is the homepage</h2>
+{% for message in messages %}
+<p id="messages">{{message}}</p>
+{% endfor %}
+
+{% for post in blog %}
+
+<p>{{post.category}}</p>
+<p> {{	post.title	}}</p>   
+<p><img src="{{post.pic.url}}" alt=""></p>
+<p>{{ post.summery|truncatewords:15|linebreaks }} <span><a href="{{ post.get_absolute_url }}">Read More</a></span></p>
+
+
+{% endfor %}
+
 {% endblock %}

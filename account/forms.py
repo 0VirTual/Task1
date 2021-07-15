@@ -6,7 +6,7 @@ from django import forms
 
 
 
-from .models import Doctor, Patient
+from .models import Doctor, Patient, Post
 
 class DoctorForm(ModelForm):
     class Meta:
@@ -22,16 +22,16 @@ class PatientForm(ModelForm):
         model = Patient
         fields = ('firstname', 'lastname', 'email', 'profile', 'address', 'zip' , 'city', 'state')
 
+class BlogForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ('category', 'title', 'summery','pic', 'content', 'status')
+        exclude = ['slug', 'created_on']
+
         
 
 
 
 
 
-# class CreateAddressForm(ModelForm):
-#     class Meta:
-#         model = Locate
-#         fields = ['address', 'zip' , 'country']
-#         widgets = {'country': CountrySelectWidget()}
-        
-       
+

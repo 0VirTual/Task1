@@ -1,23 +1,94 @@
 from django.contrib.auth.forms import User
 from django.contrib.auth.models import Group
 
-from django.shortcuts import render, redirect
-from .forms import DoctorForm, PatientForm
+from django.shortcuts import get_object_or_404, render, redirect
+from .forms import DoctorForm, PatientForm, BlogForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Doctor, Patient
+from .models import Doctor, Patient, Post
 from django.contrib.auth.decorators import login_required
+from django.views import generic
+from django.utils.text import slugify
+
+
 
 # Create your views here.
 
+def post_detail(request, year, month, day, post):
+    post = get_object_or_404(Post, slug=post,
+                                  
+                                   publish__year=year, 
+                                   publish__month=month,
+                                   publish__day=day,
+    )
+    context = {
+        'post': post,
+    }
+    return render(request, 'account/post_detail.html', context)
+
+@login_required(login_url='account:home')
+def makeBlog(request):
+    visitor = request.user
+
+    namer = Doctor.objects.get(email__startswith=visitor.email)
+
+    if request.method == "POST":
+        form  = BlogForm(request.POST)
+        
+        if form.is_valid():
+            form = BlogForm(request.POST)
+            post = form.save(commit=False)
+            post.author = namer
+            post.slug = slugify(post.title)
+            post.save()
+            
+            
+            messages.info(request, "Created a blog successfully")
+            return redirect('account:home')
+
+    else:     
+        form = BlogForm()
+    context  = {
+        'form': form,
+    }
+
+    return render(request, 'account/blog.html', context)
+
+
+
 
 def home(request):
-    context = {}
+    visitor = request.user
+    form = None
+    flag = False
+    
+    if request.user.is_anonymous or request.user.is_staff:
+        blog = None
+    else:
+        try:
+            form = Doctor.objects.get(email__startswith=visitor.email)
+            if form is not None: 
+                blog = Post.objects.all().order_by('-created_on')
+                flag = True
+           
+        except Doctor.DoesNotExist:
+            form = Patient.objects.get(email__startswith=visitor.email)
+            if form is not None:
+                blog = Post.objects.filter(status=1).order_by('-created_on')
+
+    
+    
+    context = {'blog': blog,
+                'flag': flag,
+                
+    }
     return render(request, 'account/home.html', context)
 
 
 
 def loginPage(request):
+    
+
     if request.method == "POST":
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -26,7 +97,8 @@ def loginPage(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('home')
+ 
+                return redirect('account:dashboard')
             else:
                 messages.info(request, "Username or password is incorrect")
 
@@ -35,34 +107,28 @@ def loginPage(request):
 
 def logoutPage(request):
     logout(request)
-    return redirect('login')
+    return redirect('account:login')
 
-@login_required(login_url='home')
-def dashboardPatient(request):
-    namer = request.user
+@login_required(login_url='account:home')
+def dashboard(request):
+    visitor = request.user
+    form = None
+    flag = False
     try:
-        form = Patient.objects.get(email__startswith=namer.email)
-    except Patient.DoesNotExist:
-        form = None    
-     
-    context = {'form': form}
-    return render(request, 'account/dashboard.html', context)
-
-
-@login_required(login_url='home')
-def dashboardDoctor(request):
-    namer = request.user
-
-    try:
-        form = Doctor.objects.get(email__startswith=namer.email)
-        print(form.profile.url)
+        form = Doctor.objects.get(email__startswith=visitor.email)
+        flag = True
     except Doctor.DoesNotExist:
-        form = None    
+        form = Patient.objects.get(email__startswith=visitor.email)
+
     
-        
-    context = {'form': form}
+     
+    context = {'form': form,
+                'flag':flag
+    }
     return render(request, 'account/dashboard.html', context)
-        
+
+
+ 
 
 def Choose(request):
     context = {}
@@ -98,10 +164,10 @@ def registerDoctor(request):
             messages.info(request,"An Account is Created Successfully")
 
 
-            return redirect('DoctorDash')
+            return redirect('account:dashboard')
         else:
             messages.info(request,"Password does not match, Try Again")
-            return redirect('doctor')        
+            return redirect('account:doctor')        
     else:
         form = DoctorForm()
     
@@ -132,10 +198,10 @@ def registerPatient(request):
                 messages.info(request,"An Account is Created Successfully")
 
 
-                return redirect('PatientDash')
+                return redirect('account:dashboard')
         else:
             messages.info(request,"Password does not match, Try Again")
-            return redirect('patient')        
+            return redirect('account:patient')        
     else:
         form = PatientForm()
     

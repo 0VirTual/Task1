@@ -1,0 +1,16 @@
+{% extends 'account/base.html' %}
+{% block title	%} {{ post.title }}{% endblock %}
+
+{% block content %}
+
+    <h1>Title:&nbsp;{{ post.title }}</h1>
+    <h5>Category:&nbsp;{{post.category}}</h5>
+    <p class="date">
+    <i>Published {{ post.publish }} by {{ post.author }}</i>
+    </p>
+    <h6>Summery:&nbsp;{{post.summery}}</h6>
+    <p>{{post.content| linebreaks}}</p>
+
+    
+
+{% endblock content %}
