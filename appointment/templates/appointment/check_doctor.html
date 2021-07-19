@@ -1,0 +1,31 @@
+{% extends 'account/base.html' %}
+
+{% block content %}
+
+<br>
+<div class="card-deck">
+{% for doc in doctor %}
+<form method="POST">
+  {% csrf_token %}
+  <div class="card">
+    <img style="height: 150px;width:150px;" src="{{doc.profile.url}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{doc.firstname}}&nbsp;{{doc.lastname}}</h5>
+      <p class="card-text">Hey, I am a doctor if you are looking for an appointment click below</p>
+      <!-- <input type="hidden" value="{{doc.email}}">
+      <input type="submit" class="btn btn-primary" value="Book Appointment"> -->
+      <a href="{% url 'create' doc.id %}" class="btn btn-primary">Book</a>
+      
+    </div>
+  </div>
+
+</form>
+
+
+  
+ 
+
+{% endfor %}
+</div>
+
+{% endblock %}

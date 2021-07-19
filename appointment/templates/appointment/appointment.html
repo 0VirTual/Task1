@@ -1,0 +1,23 @@
+{% extends 'account/base.html' %}
+{% block content %}
+
+<div class="col-md-9">
+    <div class="card card-body">
+        
+        
+        <ul class="list-group">
+            
+            {% for i in appointment %}
+            <li class="list-group-item">{{i.is_patient_name}}</li>
+            <li class="list-group-item">{{i.speciality}}</li>
+            <li class="list-group-item">{{i.date}}</li>
+            <li class="list-group-item">{{i.time}}</li>
+            {% endfor %}
+                              
+          </ul>
+    
+    </div>
+</div>
+
+
+{% endblock %}

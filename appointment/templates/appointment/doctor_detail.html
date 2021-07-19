@@ -1,0 +1,26 @@
+{% extends 'account/base.html' %}
+{% block title %} Created {% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-5">
+        <div class="card card-body" >
+            <form action="" method="POST">
+                {% csrf_token %}
+                
+                {% for f in form %}
+                    <h3>{{f.name}}</h3>{{f}} <hr>
+                {% endfor %}
+                <label><h3>Date</h3></label><br>
+                <input type="date" name="date"><hr>
+                <label><h3>Time</h3></label><br>
+                <input type="time" name="time"><hr>
+                <input type="submit" name="submit">
+            </form>
+        </div>
+    </div>
+</div>    
+
+
+{% endblock %}

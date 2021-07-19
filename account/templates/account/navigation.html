@@ -21,8 +21,12 @@
       {% endif %}
 
       {% if user.is_authenticated   %}
+      {% if not  flag %}
+      <span ><a class="hello-msg" href="{% url 'check_doctor' %}">Make an Appointment</a></span> 
+      {% endif %}  
       {% if flag %}
-      <span ><a class="hello-msg" href="{% url 'account:blog' %}">Create Blog</a></span> 
+      <span ><a class="hello-msg" href="{% url 'account:blog' %}">Create Blog</a></span>
+      <span ><a class="hello-msg" href="{% url 'list' %}">Appointments</a></span> 
       {% endif %}     
       <span class="hello-msg">Hello, {{request.user}}</span>
       <ul class="navbar-nav">

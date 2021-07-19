@@ -27,11 +27,3 @@ class BlogForm(ModelForm):
         model = Post
         fields = ( 'title', 'pic','category', 'summery', 'content', 'status')
         exclude = ['slug', 'created_on']
-
-        
-
-
-
-
-
-
